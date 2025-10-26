@@ -9,7 +9,7 @@
 
 ## 1. Introdução
 
-Este relatório documenta o desenvolvimento e a consolidação do projeto de Simulação de Consumo Inteligente, um sistema implementado em linguagem C com o objetivo de gerenciar o uso de energia elétrica em um ambiente simulado. O sistema utiliza a **prioridade** dos dispositivos e um **limite de energia disponível** para tomar decisões automáticas sobre quais aparelhos devem ser mantidos ligados. O foco principal deste projeto é a aplicação prática de **estruturas de dados dinâmicas** e a **análise de desempenho de algoritmos de ordenação** como base para a tomada de decisão eficiente.
+Este relatório documenta o desenvolvimento e a consolidação do projeto de Simulação de Consumo Inteligente, um sistema implementado em linguagem C com o objetivo de gerenciar o uso de energia elétrica em um ambiente simulado. O sistema utiliza a **prioridade** dos dispositivos e um **limite de energia disponível** para tomar decisões automáticas sobre quais aparelhos devem ser mantidos ligados. O foco principal deste projeto é a aplicação prática de **estruturas de dados dinâmicas** e a **análise de desempenho de algoritmos de ordenação** como base para a tomada de decisão eficiente. Tudo está no `main.c`.
 
 A Sprint 4, em particular, marcou a integração final de todos os componentes, a migração para o **cadastro dinâmico** e a implementação de uma ferramenta robusta para **comparação de desempenho** entre cinco algoritmos de ordenação distintos.
 
