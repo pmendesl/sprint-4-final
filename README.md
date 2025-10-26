@@ -1,7 +1,3 @@
-# Relatório Final do Projeto: Simulação de Consumo Inteligente
-
-**Disciplina:** [Nome da Disciplina]
-**Período:** [Período/Semestre]
 **Equipe:**
 *   **Pedro Mendes** - RM: 562242
 *   **Leonardo** - RM: 565564
