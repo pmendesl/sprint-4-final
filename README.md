@@ -1,4 +1,3 @@
-**Equipe:**
 *   **Pedro Mendes** - RM: 562242
 *   **Leonardo** - RM: 565564
 *   **Alexandre** - RM: 563346
@@ -7,68 +6,70 @@
 
 --
 
-## 1. Introdução
+# Simulação de Consumo Inteligente - Sprint 4: Consolidação e Análise de Desempenho
 
-Este relatório documenta o desenvolvimento e a consolidação do projeto de Simulação de Consumo Inteligente, um sistema implementado em linguagem C com o objetivo de gerenciar o uso de energia elétrica em um ambiente simulado. O sistema utiliza a **prioridade** dos dispositivos e um **limite de energia disponível** para tomar decisões automáticas sobre quais aparelhos devem ser mantidos ligados. O foco principal deste projeto é a aplicação prática de **estruturas de dados dinâmicas** e a **análise de desempenho de algoritmos de ordenação** como base para a tomada de decisão eficiente. Tudo está no `main.c`.
+Este projeto em C simula um sistema de gerenciamento de dispositivos elétricos com base na prioridade de consumo e um limite de energia disponível. A Sprint 4 focou na **consolidação do código** (agora em `main.c`), na implementação de **cadastro dinâmico** e na **análise de desempenho** de múltiplos algoritmos de ordenação.
 
-A Sprint 4, em particular, marcou a integração final de todos os componentes, a migração para o **cadastro dinâmico** e a implementação de uma ferramenta robusta para **comparação de desempenho** entre cinco algoritmos de ordenação distintos.
+## 🚀 Funcionalidades Principais
 
-## 2. Evolução do Sistema (Sprints 1 a 4)
+1.  **Consolidação do Código:** O código-fonte foi unificado em um único arquivo (`main.c`), garantindo a integração de todas as funcionalidades desenvolvidas nas sprints anteriores.
+2.  **Cadastro Dinâmico de Dispositivos:** O sistema agora utiliza alocação dinâmica de memória (`malloc` e `realloc`) para gerenciar a lista de dispositivos, permitindo um número ilimitado de cadastros, atendendo ao requisito de escalabilidade.
+3.  **Simulação de Decisão de Consumo:** O sistema decide quais dispositivos manter ligados, priorizando aqueles com maior importância (menor número de prioridade), respeitando um limite de energia (kWh) definido pelo usuário.
+4.  **Múltiplos Algoritmos de Ordenação:** Implementação de cinco algoritmos de ordenação para classificar os dispositivos por prioridade, essenciais para a simulação e a análise de complexidade:
+    *   Bubble Sort
+    *   Selection Sort
+    *   Insertion Sort
+    *   Merge Sort
+    *   Quick Sort
+5.  **Comparação de Desempenho:** Ferramenta interativa (Opção 4 no menu) para comparar o desempenho dos 5 algoritmos de ordenação em termos de **tempo de execução**, **número de comparações** e **número de trocas**.
+6.  **Persistência de Dados:** Os dispositivos cadastrados são salvos e carregados automaticamente em um arquivo binário (`dispositivos.dat`).
 
-O projeto evoluiu de uma prova de conceito simples para um sistema funcional e analítico, conforme detalhado na tabela a seguir:
+## 🛠️ Como Compilar e Executar
 
-| Sprint | Foco Principal | Funcionalidades Chave | Estrutura de Dados |
-| :--- | :--- | :--- | :--- |
-| **Sprint 1** | Conceito e Estrutura | Cadastro, Listagem (em memória) | Estática (Array fixo) |
-| **Sprint 2** | Persistência e Ordenação Básica | Bubble Sort, Salvar/Carregar dados | Estática (Array fixo) |
-| **Sprint 3** | Análise de Complexidade | Selection Sort, Medição de Tempo e Operações | Estática (Array fixo) |
-| **Sprint 4** | **Consolidação e Escalabilidade** | **Cadastro Dinâmico**, **Insertion, Merge, Quick Sort**, **Comparação de Desempenho** | **Dinâmica (Ponteiro e `realloc`)** |
+### Pré-requisitos
+É necessário ter um compilador C (como o GCC) instalado no sistema.
 
-A consolidação do código na Sprint 4 resultou no arquivo `main.c`, que unifica a lógica de gerenciamento de dados, simulação e análise de desempenho.
+### Compilação
+Navegue até o diretório do projeto (`sprint-3`) e execute o seguinte comando:
 
-## 3. Análises Técnicas da Sprint 4
+```bash
+gcc -o sprint4_app main.c
+```
 
-### 3.1. Implementação do Cadastro Dinâmico
+### Execução
+Após a compilação, execute o programa:
 
-O requisito de **Cadastro Dinâmico** foi atendido através da substituição do array estático `Dispositivo dispositivos[MAX_DISPOSITIVOS]` por uma estrutura de lista dinâmica (`ListaDispositivos`), que contém um ponteiro para `Dispositivo *dispositivos`, o número atual de dispositivos (`numDispositivos`) e a capacidade alocada (`capacidade`).
+```bash
+./sprint4_app
+```
 
-A função `adicionarDispositivo` é responsável por gerenciar a alocação de memória. Quando o número de dispositivos atinge a capacidade máxima, a função utiliza `realloc()` para duplicar a capacidade do array, garantindo que o sistema possa cadastrar um número virtualmente ilimitado de dispositivos, eliminando a limitação de memória imposta pelas Sprints anteriores.
+## 📋 Menu de Uso
 
-### 3.2. Simulação de Decisão de Consumo
+O programa é executado via linha de comando e apresenta um menu interativo:
 
-A função `simularConsumoInteligente` é o cerne da lógica de negócio. Ela opera em três etapas:
+| Opção | Descrição |
+| :---: | :--- |
+| **1** | **Cadastrar Novo Dispositivo:** Permite adicionar um novo dispositivo com nome, consumo (kWh) e prioridade (1=Alta, 2=Média, 3=Baixa). |
+| **2** | **Listar Dispositivos:** Exibe todos os dispositivos cadastrados, seu status atual e o consumo total estimado. |
+| **3** | **Simular Decisão de Consumo Inteligente:** Solicita um limite de energia e realiza a simulação, desligando dispositivos de menor prioridade para se manter dentro do limite. |
+| **4** | **Comparar Desempenho de Algoritmos de Ordenação:** Executa os 5 algoritmos e exibe uma tabela comparativa de tempo, comparações e trocas. |
+| **5** | **Salvar Dispositivos:** Salva o estado atual dos dispositivos em disco. |
+| **6** | **Sair:** Salva os dispositivos e encerra o programa. |
 
-1.  **Cópia dos Dados:** Uma cópia dos dispositivos é feita para que a ordenação não altere o estado original do cadastro principal.
-2.  **Ordenação por Prioridade:** A lista é ordenada (usando `Selection Sort` como padrão na simulação) para garantir que os dispositivos de maior prioridade (menor valor numérico) estejam no início da lista.
-3.  **Decisão Sequencial:** O sistema percorre a lista ordenada, ligando sequencialmente cada dispositivo, desde que o consumo acumulado não exceda o limite de energia disponível.
+## 💡 Análise Técnica da Sprint 4
 
-Este método garante uma **decisão de consumo otimizada** baseada na prioridade, um requisito fundamental do projeto.
+A Sprint 4 representa a maturidade do sistema. A adoção da **alocação dinâmica** elimina as limitações de capacidade do sistema. A implementação de algoritmos de ordenação avançados ($O(n \log n)$) como **Merge Sort** e **Quick Sort** permite que a simulação de consumo inteligente mantenha um alto desempenho, mesmo com um grande volume de dispositivos.
 
-### 3.3. Comparação de Desempenho dos Algoritmos de Ordenação
+A ferramenta de comparação de desempenho é fundamental para a **validação técnica** do projeto, demonstrando empiricamente a diferença de complexidade entre os algoritmos quadráticos ($O(n^2)$) e os log-lineares ($O(n \log n)$).
 
-A Sprint 4 implementou e integrou mais três algoritmos de ordenação, totalizando cinco: Bubble Sort, Selection Sort, Insertion Sort, Merge Sort e Quick Sort.
-
-A ferramenta de **Comparação de Desempenho** (Opção 4 do menu) mede três métricas cruciais para a análise de complexidade:
-
-1.  **Tempo de Execução:** Medido em milissegundos (`clock()`).
-2.  **Comparações:** Contador global que registra o número de comparações de prioridade.
-3.  **Trocas:** Contador global que registra o número de operações de troca de posição.
-
-A tabela a seguir resume a complexidade teórica dos algoritmos implementados:
-
-| Algoritmo | Complexidade (Pior Caso) | Família de Complexidade |
+| Algoritmo | Complexidade (Pior Caso) | Tipo |
 | :--- | :--- | :--- |
-| **Bubble Sort** | $O(n^2)$ | Quadrática |
-| **Selection Sort** | $O(n^2)$ | Quadrática |
-| **Insertion Sort** | $O(n^2)$ | Quadrática |
-| **Merge Sort** | $O(n \log n)$ | Log-linear |
-| **Quick Sort** | $O(n^2)$ (Pior), $O(n \log n)$ (Médio) | Log-linear (na média) |
+| **Bubble Sort** | $O(n^2)$ | Simples, Quadrático |
+| **Selection Sort** | $O(n^2)$ | Simples, Quadrático |
+| **Insertion Sort** | $O(n^2)$ | Simples, Quadrático |
+| **Merge Sort** | $O(n \log n)$ | Avançado, Log-linear |
+| **Quick Sort** | $O(n^2)$ (Pior), $O(n \log n)$ (Médio) | Avançado, Log-linear (na média) |
 
-A análise empírica, realizada pela ferramenta de comparação, demonstra que os algoritmos log-lineares (`Merge Sort` e `Quick Sort`) apresentam um desempenho superior (menor tempo e menor número de comparações/trocas) em grandes volumes de dados, validando a teoria da complexidade.
-
-## 4. Considerações Finais
-
-O projeto Simulação de Consumo Inteligente atingiu todos os objetivos propostos para a Sprint 4 e para o ciclo de desenvolvimento completo. A consolidação do código e a implementação do cadastro dinâmico garantem que o sistema seja **escalável** e **manutenível**.
 
 A integração dos múltiplos algoritmos de ordenação e a ferramenta de comparação de desempenho não apenas cumprem os requisitos técnicos, mas também fornecem uma plataforma de aprendizado e validação empírica dos conceitos de **Análise de Complexidade de Algoritmos**.
 
